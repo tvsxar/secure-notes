@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-
+const AuthRouter = require('./routes/auth');
 
 // Setting up environment variables
 require('dotenv').config();
@@ -11,9 +11,13 @@ const app = express();
 const PORT = process.env.PORT || 3333;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
+app.use('/auth', AuthRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');

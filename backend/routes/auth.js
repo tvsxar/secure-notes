@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const pool = require('../config/db');
 const router = express.Router();
 const generateToken = require('../utils/generateToken');
+const protectMiddleware = require('../middleware/protectMiddleware');
 
 require('dotenv').config();
 
@@ -111,7 +112,7 @@ router.post('/logout', async (req, res) => {
 })
 
 // Me
-router.get('/me', async (req, res) => {
+router.get('/me', protectMiddleware, async (req, res) => {
     // Return info of the logged in user from protect middleware
     res.json(req.user)
 })
