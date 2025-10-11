@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const AuthRouter = require('./routes/auth');
+const AuthRoutes = require('./routes/auth');
+const NoteRoutes = require('./routes/notes');
 
 // Setting up environment variables
 require('dotenv').config();
@@ -17,7 +18,8 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(cookieParser());
-app.use('/auth', AuthRouter);
+app.use('/auth', AuthRoutes);
+app.use('/notes', NoteRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
