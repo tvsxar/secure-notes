@@ -1,14 +1,20 @@
 import { useState, useContext } from 'react';
-import { useSearchParams, Link, Navigate } from 'react-router-dom';
+import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 function AccountPage() {
+  // Check what`s a mode
   const [searchParams] = useSearchParams();
   const mode = searchParams.get('mode');
   const isLogin = mode === 'login';
-  const {handlePostQuery, setUser} = useContext(AuthContext);
 
-  // states
+  // Navigation
+  const navigate = useNavigate();
+
+  // Context
+  const {handlePostQuery, setUser, error} = useContext(AuthContext);
+
+  // States
   const [loginForm, setLoginForm] = useState({
     usernameOrEmail: '',
     password: ''
@@ -19,8 +25,8 @@ function AccountPage() {
     password: ''
   })
 
+  // Functions
   function setForm(e) {
-    e.preventDefault()
     const { name, value } = e.target;
 
     if (mode === 'login') {
@@ -30,13 +36,15 @@ function AccountPage() {
     }
   }
 
-  async function handleSubmit(type, userData) {
-    try {
-      const res = await handlePostQuery(type, userData);
-      setUser(res)
-    } catch (error) {
-      console.error(error)
-    }
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    // Set userData depends on mode
+    const userData = isLogin ? loginForm : registerForm;
+
+    // Login or Register new user
+    await handlePostQuery(mode, userData);
+    navigate('/notes');
   }
 
   return (
@@ -51,10 +59,11 @@ function AccountPage() {
             : 'Create a new account'}
         </p>
 
+        {/* Display errors */}
+        {error && <div className='text-red-500 py-1 mb-3'>{error}</div>}
+
         <form className="space-y-4"
-        onSubmit={isLogin 
-        ? handleSubmit('login', loginForm) 
-        : handleSubmit('register', registerForm)}>
+        onSubmit={handleSubmit}>
           {!isLogin && (
             <div>
               <input
@@ -62,7 +71,8 @@ function AccountPage() {
                 name="username"
                 placeholder="Username"
                 value={registerForm.username}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg 
+                focus:ring-2 focus:ring-black focus:outline-none"
                 onChange={setForm}
               />
             </div>
@@ -72,9 +82,10 @@ function AccountPage() {
             <input
               type={isLogin ? 'text' : 'email'}
               name={isLogin ? 'usernameOrEmail' : "email"}
-              placeholder={mode === 'login' ? 'Email or username' : "Email"}
+              placeholder={isLogin ? 'Email or username' : "Email"}
               value={isLogin ? loginForm.usernameOrEmail : registerForm.email}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg 
+              focus:ring-2 focus:ring-black focus:outline-none"
               onChange={setForm}
             />
           </div>
@@ -85,14 +96,16 @@ function AccountPage() {
               name='password'
               placeholder="Password"
               value={isLogin ? loginForm.password : registerForm.password}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:outline-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg 
+              focus:ring-2 focus:ring-black focus:outline-none"
               onChange={setForm}
             />
           </div>
 
           <button
             type="submit"
-            className="w-full py-2 bg-black text-white rounded-lg font-medium hover:bg-black/80 transition active:scale-[0.98] cursor-pointer">
+            className="w-full py-2 bg-black text-white rounded-lg 
+            font-medium hover:bg-black/80 transition active:scale-[0.98] cursor-pointer">
             {!isLogin ? 'Sign Up' : 'Sign In'}
           </button>
         </form>

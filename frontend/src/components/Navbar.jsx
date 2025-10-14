@@ -3,7 +3,14 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
 function Navbar() {
-    const { user } = useContext(AuthContext);
+    const { user, handleLogout } = useContext(AuthContext);
+
+    const navigate = useNavigate();
+
+    async function handleLogoutButton() {
+        await handleLogout();
+        navigate('/');
+    }
 
     return (
         <nav className="flex items-center justify-between border-b-2 border-gray-200 p-3">
@@ -15,7 +22,9 @@ function Navbar() {
                     <button className='text-white text-sm bg-black rounded-md px-3 h-8 cursor-pointer hover:bg-black/80 duration-200'><Link to="/account?mode=register">Sign Up</Link></button>
                 </div>
             ) : (
-                <button className='cursor-pointer bg-red-500 text-sm px-3 h-8 rounded-md text-white'>Logout</button>
+                <button 
+                onClick={handleLogoutButton}
+                className='cursor-pointer bg-red-500 text-sm px-3 h-8 rounded-md text-white'>Logout</button>
             )}
         </nav>
     )
