@@ -26,7 +26,7 @@ function AuthProvider({children}) {
         fetchUser();
     }, [])
 
-    async function handlePostQuery(type, userData, navigate) {
+    async function handlePostQuery(type, userData) {
         const isLogin = type === 'login';
 
         try {
