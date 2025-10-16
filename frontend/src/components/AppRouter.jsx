@@ -18,9 +18,9 @@ function AppRouter() {
             <Navbar />
 
             <Routes>
-                <Route path='/' element={!user ? <WelcomePage /> : <Navigate to='/notes' replace />} />
+                <Route path='/' element={user ? <WelcomePage /> : <Navigate to='/notes' replace />} />
 
-                <Route path='/notes' element={user ? <NotesPage /> : <Navigate to='/' replace />} />
+                <Route path='/notes' element={!user ? <NotesPage /> : <Navigate to='/' replace />} />
 
                 <Route path='/account' element={<AccountPage />} />
             </Routes>
