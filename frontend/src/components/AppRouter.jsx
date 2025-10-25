@@ -9,6 +9,7 @@ import Navbar from './Navbar';
 // Import pages
 import AccountPage from '../pages/AccountPage';
 import WelcomePage from '../pages/WelcomePage';
+import NotFoundPage from '../pages/NotFoundPage';
 import NotesPage from '../pages/NotesPage';
 import NoteModal from './NoteModal';
 
@@ -26,6 +27,8 @@ function AppRouter() {
                 <Route path='/notes' element={user ? <NotesPage /> : <Navigate to='/' replace />} />
 
                 <Route path='/account' element={<AccountPage />} />
+
+                <Route path='*' element={<NotFoundPage />} />
             </Routes>
 
             {modal.isOpen && <NoteModal />}
