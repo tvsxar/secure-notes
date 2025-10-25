@@ -43,8 +43,11 @@ function AccountPage() {
     const userData = isLogin ? loginForm : registerForm;
 
     // Login or Register new user
-    await handlePostQuery(mode, userData);
-    navigate('/notes');
+    const success = await handlePostQuery(mode, userData); 
+
+    if (success) {
+      navigate('/notes');
+    }
   }
 
   return (
