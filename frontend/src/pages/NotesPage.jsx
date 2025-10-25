@@ -4,7 +4,7 @@ import AddNoteButton from '../components/AddNoteButton';
 import SearchBar from '../components/SearchBar';
 
 // Context
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { NotesContext } from '../context/NotesContext';
 import { AuthContext } from '../context/AuthContext';
 
