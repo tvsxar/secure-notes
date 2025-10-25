@@ -7,6 +7,11 @@ function NotesProvider({children}) {
     const [ notes, setNotes ] = useState([]);
     const [ notesLoading, setNotesLoading ] = useState(false);
     const [ notesError, setNotesError ] = useState(null);
+    const [ selectedNote, setSelectedNote ] = useState(null);
+    const [ modal, setModal ] = useState({
+        isOpen: false,
+        mode: 'add'
+    });
 
     useEffect(() => {
         handleGetNotes();
@@ -97,6 +102,8 @@ function NotesProvider({children}) {
             notes, setNotes,
             notesLoading, setNotesLoading,
             notesError, setNotesError,
+            modal, setModal,
+            selectedNote, setSelectedNote,
             handleAddNewNote, handleGetNotes,
             handleUpdateNote, handleDeleteNote
         }}>

@@ -1,16 +1,44 @@
 import editButton from '../assets/edit.svg';
 import trashButton from '../assets/trash.svg';
 
-function NoteItem() {
+// Context
+import { useContext } from 'react';
+import { NotesContext } from '../context/NotesContext';
+
+function NoteItem({ note }) {
+    const { setModal, setSelectedNote } = useContext(NotesContext);
+    
+    function handleOpenModal(mode = 'edit') {
+        setModal({
+            isOpen: true,
+            mode
+        });
+        setSelectedNote(note);
+    }
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+
+        return `${day}/${month}/${year} at ${hours}:${minutes}`;
+    }
+
     return (
         <div className="flex flex-col gap-4 rounded-xl border-gray-300 
         border-1 min-w-50 max-w-100 min-h-60 py-4 px-3
         hover:shadow-md transition-shadow duration-300">
             <div className="flex items-center justify-between">
-                <h3 className='font-black'>Title Example</h3>
+                <h3 className='font-black'>{note.title}</h3>
 
                 <div className="flex items-center gap-2 select-none">
-                    <button className='cursor-pointer hover:bg-gray-200 hover:rounded-md'>
+                    <button onClick={() => handleOpenModal('edit')}
+                    className='cursor-pointer hover:bg-gray-200 hover:rounded-md'>
                         <img src={editButton} alt="Edit" className='h-6 w-6' />
                     </button>
                     <button className='cursor-pointer hover:bg-gray-200 hover:rounded-md'>
@@ -20,11 +48,11 @@ function NoteItem() {
             </div>
 
             <div className="text-sm line-clamp-4">
-                <p>description example description example description example description example description example description example description example</p>
+                <p>{note.description}</p>
             </div>
 
             <div className="text-xs text-gray-400 select-none">
-                <p>16/10/2025 at 10:30</p>
+                <p>{formatDate(note.created_at)}</p>
             </div>
         </div>
     )

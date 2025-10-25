@@ -1,11 +1,14 @@
 import AuthProvider from "./context/AuthContext"
 import AppRouter from "./components/AppRouter"
+import NotesProvider from "./context/NotesContext"
 
 function App() {
 
   return (
     <AuthProvider>
-      <AppRouter />
+      <NotesProvider>
+        <AppRouter />
+      </NotesProvider>
     </AuthProvider>
   )
 }
