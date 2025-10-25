@@ -17,6 +17,14 @@ function NotesPage() {
         handleGetNotes();
     }, []);
 
+    if (!user) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gray-100">
+                <div className="text-center text-gray-500">Loading user data...</div>
+            </div>
+        )
+    }
+
     return (
         <div className="py-5 bg-gray-100 min-h-screen px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40">
             <div className="flex flex-col gap-10">

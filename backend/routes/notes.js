@@ -35,13 +35,26 @@ router.post('/', protectMiddleware, async (req, res) => {
 router.get('/', protectMiddleware, async (req, res) => {
     try {
         const userId = req.user.id;
+        const { search } = req.query;
 
-        const allNotes = await pool.query(
-            `SELECT * FROM notes 
-            WHERE user_id = $1 
-            ORDER BY created_at DESC`,
+        let allNotes;
+
+        if (search) {
+            allNotes = await pool.query(
+                `SELECT * FROM notes 
+                WHERE user_id = $1 
+                AND (title ILIKE $2 OR description ILIKE $2)
+                ORDER BY created_at DESC`,
+                [userId, `%${search}%`]
+            )
+        } else {
+            allNotes = await pool.query(
+                `SELECT * FROM notes 
+                WHERE user_id = $1 
+                ORDER BY created_at DESC`,
             [userId]
-        )
+            )
+        }
 
         res.status(200).json({message: 'Getting all notes successfully', notes: allNotes.rows})
     } catch (err) {
