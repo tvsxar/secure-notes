@@ -44,7 +44,7 @@ function NoteItem({ note }) {
 
     return (
         <div className="flex flex-col gap-4 rounded-xl border-gray-300 
-        border-1 min-w-50 max-w-100 min-h-60 py-4 px-3
+        border-1 w-full max-w-full min-h-[15rem] py-4 px-3
         hover:shadow-md transition-shadow duration-300">
             <div className="flex items-center justify-between">
                 <h3 className='font-black'>{note.title}</h3>

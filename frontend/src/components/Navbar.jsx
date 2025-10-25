@@ -14,7 +14,7 @@ function Navbar() {
 
     return (
         <nav className="flex select-none items-center justify-between border-b-2 border-gray-200 p-3">
-            <h1 className='font-semibold text-lg'><Link to='/'>Notedly</Link></h1>
+            <h1 className='font-semibold text-lg sm:text-xl'><Link to='/'>Notedly</Link></h1>
 
             {!user ? (
                 <div className="flex gap-4">
