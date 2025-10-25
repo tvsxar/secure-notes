@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function WelcomePage() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -11,16 +13,16 @@ function WelcomePage() {
         </p>
 
         <div className="flex justify-center gap-4">
-          <a
-            href="/account?mode=login"
+          <Link
+            to="/account?mode=login"
             className="px-5 py-2 bg-black text-white rounded-lg font-medium hover:bg-black/80 transition active:scale-[0.98]">
             Sign In
-          </a>
-          <a
-            href="/account?mode=register"
+          </Link>
+          <Link
+            to="/account?mode=register"
             className="px-5 py-2 border border-black text-black rounded-lg font-medium hover:bg-black/10 transition active:scale-[0.98]">
             Get Started
-          </a>
+          </Link>
         </div>
       </div>
     </div>
