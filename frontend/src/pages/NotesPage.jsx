@@ -10,8 +10,12 @@ import { AuthContext } from '../context/AuthContext';
 
 function NotesPage() {
 
-    const { notes } = useContext(NotesContext);
+    const { notes, handleGetNotes, notesLoading, notesError } = useContext(NotesContext);
     const { user } = useContext(AuthContext);
+
+    useEffect(() => {
+        handleGetNotes();
+    }, []);
 
     return (
         <div className="py-5 bg-gray-100 min-h-screen px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40">
@@ -29,11 +33,19 @@ function NotesPage() {
 
                 <SearchBar />
 
-                <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                    {notes?.map(note => note && (
-                        <NoteItem key={note.id} note={note} />
-                    ))}
-                </div>
+                {notesLoading ? (
+                    <div className="text-center text-gray-500">Loading notes...</div>
+                ) : notesError ? (
+                    <div className="text-center text-red-500">{notesError}</div>
+                ) : notes.length === 0 ? (
+                    <div className="text-center text-gray-500">No notes found. Start by adding a new note!</div>
+                ) : (
+                    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                        {notes?.map(note => note && (
+                            <NoteItem key={note.id} note={note} />
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     )
