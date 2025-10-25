@@ -34,11 +34,11 @@ function NotesProvider({children}) {
         }
     }
 
-    async function handleGetNotes() {
+    async function handleGetNotes(search) {
         try {
             setNotesLoading(true);
             setNotesError(null)
-            const response = await api.get('/notes');
+            const response = await api.get('/notes?search=' + (search || ''));
             const { notes: fetchedNotes } = response.data;
 
             if (!fetchedNotes) {

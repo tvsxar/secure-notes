@@ -4,23 +4,40 @@ import AddNoteButton from '../components/AddNoteButton';
 import SearchBar from '../components/SearchBar';
 
 // Context
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { NotesContext } from '../context/NotesContext';
 import { AuthContext } from '../context/AuthContext';
 
 function NotesPage() {
+    const [ searchTerm, setSearchTerm ] = useState('');
 
     const { notes, handleGetNotes, notesLoading, notesError } = useContext(NotesContext);
-    const { user } = useContext(AuthContext);
+    const { user, loading, error } = useContext(AuthContext);
 
     useEffect(() => {
-        handleGetNotes();
-    }, []);
+        handleGetNotes(searchTerm);
+    }, [searchTerm]);
 
     if (!user) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-gray-100">
                 <div className="text-center text-gray-500">Loading user data...</div>
+            </div>
+        )
+    }
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gray-100">
+                <div className="text-center text-gray-500">Loading...</div>
+            </div>
+        )
+    }
+
+    if (error) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gray-100">
+                <div className="text-center text-red-500">{error}</div>
             </div>
         )
     }
@@ -39,7 +56,7 @@ function NotesPage() {
 
                 <AddNoteButton />
 
-                <SearchBar />
+                <SearchBar setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
 
                 {notesLoading ? (
                     <div className="text-center text-gray-500">Loading notes...</div>
