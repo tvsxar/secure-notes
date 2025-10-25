@@ -6,7 +6,7 @@ import { useContext } from 'react';
 import { NotesContext } from '../context/NotesContext';
 
 function NoteItem({ note }) {
-    const { setModal, setSelectedNote } = useContext(NotesContext);
+    const { setNotes, setModal, setSelectedNote, handleDeleteNote } = useContext(NotesContext);
     
     function handleOpenModal(mode = 'edit') {
         setModal({
@@ -14,6 +14,19 @@ function NoteItem({ note }) {
             mode
         });
         setSelectedNote(note);
+    }
+
+    function handleCloseModal() {
+        setModal({
+            isOpen: false,
+            mode: 'add'
+        });
+    }
+
+    function handleDeleteNoteClick() {
+        handleCloseModal();
+        handleDeleteNote(note.id);
+        setNotes(prev => prev.filter(noteItem => noteItem.id !== note.id));
     }
 
     function formatDate(dateString) {
@@ -41,7 +54,8 @@ function NoteItem({ note }) {
                     className='cursor-pointer hover:bg-gray-200 hover:rounded-md'>
                         <img src={editButton} alt="Edit" className='h-6 w-6' />
                     </button>
-                    <button className='cursor-pointer hover:bg-gray-200 hover:rounded-md'>
+                    <button onClick={handleDeleteNoteClick}
+                    className='cursor-pointer hover:bg-gray-200 hover:rounded-md'>
                         <img src={trashButton} alt="Trash" className='h-6 w-6' />
                     </button>
                 </div>

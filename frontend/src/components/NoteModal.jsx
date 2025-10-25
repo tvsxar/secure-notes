@@ -8,13 +8,13 @@ import { NotesContext } from '../context/NotesContext';
 import { useState } from 'react';
 
 function NoteModal() {
-    const { modal, setModal, selectedNote } = useContext(NotesContext);
+    const { setNotes, modal, setModal, selectedNote, handleAddNewNote, handleUpdateNote } = useContext(NotesContext);
 
     const isEditMode = modal.mode === 'edit';
 
     const [noteData, setNoteData] = useState({
-        title: isEditMode ? selectedNote.title : '',
-        description: isEditMode ? selectedNote.description : ''
+        title: isEditMode && selectedNote ? selectedNote.title : '',
+        description: isEditMode && selectedNote ? selectedNote.description : ''
     });
 
     function handleCloseModal() {
@@ -22,6 +22,25 @@ function NoteModal() {
             isOpen: false,
             mode: 'add'
         });
+        setNoteData({ title: '', description: '' });
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        // Handle add or edit note logic
+        if(isEditMode) {
+            await handleUpdateNote(selectedNote.id, noteData);
+            setNotes(prev => prev.map(note => 
+                note.id === selectedNote.id ? { ...note, ...noteData } : note
+            ))
+        } else {
+            const newNote = await handleAddNewNote(noteData);
+            setNotes(prev => ([...prev, newNote]
+            ))
+        }
+
+        handleCloseModal();
     }
 
     return (
@@ -38,7 +57,7 @@ function NoteModal() {
                     </button>
                 </div>
 
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="flex flex-col gap-4 mt-6 w-md">
                         <input type="text" 
                         placeholder='Title' 

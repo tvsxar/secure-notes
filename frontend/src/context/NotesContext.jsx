@@ -15,7 +15,7 @@ function NotesProvider({children}) {
 
     useEffect(() => {
         handleGetNotes();
-    }, []);
+    }, [notes.length]);
 
     async function handleAddNewNote(noteData) {
         try {

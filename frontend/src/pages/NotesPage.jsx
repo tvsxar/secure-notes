@@ -30,7 +30,7 @@ function NotesPage() {
                 <SearchBar />
 
                 <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    {notes.map(note => (
+                    {notes?.map(note => note && (
                         <NoteItem key={note.id} note={note} />
                     ))}
                 </div>
