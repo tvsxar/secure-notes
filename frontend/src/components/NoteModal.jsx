@@ -40,15 +40,15 @@ function NoteModal() {
 
     return (
         <div onClick={handleCloseModal}
-        className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 sm:p-6">
             <div onClick={(e) => e.stopPropagation()}
             className="bg-white rounded-xl p-4 max-w-xl mx-auto shadow-sm">
                 <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold text-gray-800">{!isEditMode ? 'Add New Note' : 'Update Note'}</h2>
+                    <h2 className="text-lg sm:text-xl font-semibold text-gray-800">{!isEditMode ? 'Add New Note' : 'Update Note'}</h2>
     
-                    <button className='cursor-pointer'
+                    <button className='cursor-pointer p-1 sm:p-2'
                     onClick={() => handleCloseModal()}>
-                        <img src={closeIcon} alt="close" className='w-8 h-8' />
+                        <img src={closeIcon} alt="close" className='w-6 sm:w-8 h-6 sm:h-8' />
                     </button>
                 </div>
 
