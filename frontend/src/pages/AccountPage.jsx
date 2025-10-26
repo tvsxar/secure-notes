@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { useSearchParams, Link, useNavigate } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 function AccountPage() {
@@ -7,9 +7,6 @@ function AccountPage() {
   const [searchParams] = useSearchParams();
   const mode = searchParams.get('mode');
   const isLogin = mode === 'login';
-
-  // Navigation
-  const navigate = useNavigate();
 
   // Context
   const {handlePostQuery, error} = useContext(AuthContext);
@@ -43,11 +40,7 @@ function AccountPage() {
     const userData = isLogin ? loginForm : registerForm;
 
     // Login or Register new user
-    const success = await handlePostQuery(mode, userData);
-    
-    if (success) {
-        navigate('/notes');
-    }
+    await handlePostQuery(mode, userData);
   }
 
   return (
