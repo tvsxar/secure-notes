@@ -11,11 +11,9 @@ import AccountPage from '../pages/AccountPage';
 import WelcomePage from '../pages/WelcomePage';
 import NotFoundPage from '../pages/NotFoundPage';
 import NotesPage from '../pages/NotesPage';
-import NoteModal from './NoteModal';
 
 function AppRouter() {
     const { user } = useContext(AuthContext);
-    const { modal } = useContext(NotesContext);
 
     return (
         <Router>
@@ -30,8 +28,6 @@ function AppRouter() {
 
                 <Route path='*' element={<NotFoundPage />} />
             </Routes>
-
-            {modal.isOpen && <NoteModal />}
       </Router>
     )
 }

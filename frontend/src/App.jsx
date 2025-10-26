@@ -1,5 +1,5 @@
 import AuthProvider from "./context/AuthContext"
-import AppRouter from "./components/AppRouter"
+import AppContent from "./components/AppContent"
 import NotesProvider from "./context/NotesContext"
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
   return (
     <AuthProvider>
       <NotesProvider>
-        <AppRouter />
+        <AppContent />
       </NotesProvider>
     </AuthProvider>
   )
