@@ -1,9 +1,10 @@
-import AppRouter from "./components/AppRouter"
-import { NotesContext } from "./context/NotesContext";
-import NoteModal from "./components/NoteModal";
+import AppRouter from "./AppRouter"
+import { NotesContext } from "../context/NotesContext";
+import NoteModal from "./NoteModal";
+import { useContext } from "react";
 
 function AppContent() {
-    const { modal } = React.useContext(NotesContext);
+    const { modal } = useContext(NotesContext);
 
     return (
         <div className="App">
