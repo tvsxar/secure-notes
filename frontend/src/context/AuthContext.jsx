@@ -33,17 +33,15 @@ function AuthProvider({children}) {
             setLoading(true);
             const response = await api.post(isLogin ? '/auth/login' : '/auth/register', userData);
 
-            if (!user) {
+            const responseUser = response.data.user;
+
+            if (!responseUser) {
                 setError(isLogin ? "Invalid email or password" : "Registration failed");
                 return;
             }
 
-            const { user } = response.data;
-
             // Set user & navigate to notes
-            setUser(user);
-
-            navigate('/notes');
+            setUser(responseUser);
         } catch (error) {
             console.error(error);
             setError("Something went wrong, please try again.");

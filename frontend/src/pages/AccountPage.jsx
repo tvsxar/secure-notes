@@ -41,6 +41,8 @@ function AccountPage() {
 
     // Login or Register new user
     await handlePostQuery(mode, userData);
+
+    
   }
 
   return (
