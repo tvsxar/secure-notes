@@ -12,7 +12,7 @@ function AccountPage() {
   const navigate = useNavigate();
 
   // Context
-  const {handlePostQuery, setUser, error} = useContext(AuthContext);
+  const {handlePostQuery, error} = useContext(AuthContext);
 
   // States
   const [loginForm, setLoginForm] = useState({
@@ -43,8 +43,11 @@ function AccountPage() {
     const userData = isLogin ? loginForm : registerForm;
 
     // Login or Register new user
-    await handlePostQuery(mode, userData);
-    navigate('/notes');
+    const success = await handlePostQuery(mode, userData);
+    
+    if (success) {
+        navigate('/notes');
+    }
   }
 
   return (

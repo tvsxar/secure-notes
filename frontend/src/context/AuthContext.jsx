@@ -42,9 +42,12 @@ function AuthProvider({children}) {
 
             // Set user & navigate to notes
             setUser(user);
+
+            return true;
         } catch (error) {
             console.error(error);
             setError("Something went wrong, please try again.");
+            return false;
         } finally {
             setLoading(false);
         }
