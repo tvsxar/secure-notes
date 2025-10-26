@@ -25,7 +25,7 @@ function NotesProvider({children}) {
                 return;
             }
 
-            setNotes(prev => ([...prev, note]))
+            setNotes(prev => ([note, ...prev]))
         } catch (error) {
             console.error(error);
             setNotesError("Something went wrong, please try again.");

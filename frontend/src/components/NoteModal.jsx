@@ -8,7 +8,7 @@ import { NotesContext } from '../context/NotesContext';
 import { useState } from 'react';
 
 function NoteModal() {
-    const { setNotes, modal, setModal, selectedNote, handleAddNewNote, handleUpdateNote } = useContext(NotesContext);
+    const { modal, setModal, selectedNote, handleAddNewNote, handleUpdateNote } = useContext(NotesContext);
 
     const isEditMode = modal.mode === 'edit';
 
@@ -31,13 +31,8 @@ function NoteModal() {
         // Handle add or edit note logic
         if(isEditMode) {
             await handleUpdateNote(selectedNote.id, noteData);
-            setNotes(prev => prev.map(note => 
-                note.id === selectedNote.id ? { ...note, ...noteData } : note
-            ))
         } else {
-            const newNote = await handleAddNewNote(noteData);
-            setNotes(prev => ([...prev, newNote]
-            ))
+            await handleAddNewNote(noteData);
         }
 
         handleCloseModal();
