@@ -36,7 +36,7 @@ Frontend is built with **React (Vite)** and styled with **Tailwind CSS**.
 
 ## Live Demo
 
-Try it online via our [Live Demo](https://secure-notes-frontend-1c59.onrender.com)!
+Try it online via our [Live Demo](https://secure-notes-backend-icl1.onrender.com)!
 
 ---
 
