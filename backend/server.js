@@ -3,6 +3,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const AuthRoutes = require('./routes/auth');
 const NoteRoutes = require('./routes/notes');
+const path = require('path');
 
 // Setting up environment variables
 require('dotenv').config();
