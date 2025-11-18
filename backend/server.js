@@ -19,8 +19,8 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(cookieParser());
-app.use('/auth', AuthRoutes);
-app.use('/notes', NoteRoutes);
+app.use('/api/auth', AuthRoutes);
+app.use('/api/notes', NoteRoutes);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {

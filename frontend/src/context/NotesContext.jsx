@@ -17,7 +17,7 @@ function NotesProvider({children}) {
         try {
             setNotesLoading(true);
             setNotesError(null)
-            const response = await api.post('/notes', noteData)
+            const response = await api.post('/api/notes', noteData)
             const { note } = response.data;
 
             if (!note) {
@@ -38,7 +38,7 @@ function NotesProvider({children}) {
         try {
             setNotesLoading(true);
             setNotesError(null)
-            const response = await api.get('/notes?search=' + (search || ''));
+            const response = await api.get('/api/notes?search=' + (search || ''));
             const { notes: fetchedNotes } = response.data;
 
             if (!fetchedNotes) {
@@ -59,7 +59,7 @@ function NotesProvider({children}) {
         try {
             setNotesLoading(true);
             setNotesError(null)
-            const response = await api.put(`/notes/${id}`, noteData);
+            const response = await api.put(`/api/notes/${id}`, noteData);
             const { note } = response.data;
 
             if (!note) {
@@ -82,7 +82,7 @@ function NotesProvider({children}) {
         try {
             setNotesLoading(true);
             setNotesError(null)
-            await api.delete(`/notes/${id}`);
+            await api.delete(`/api/notes/${id}`);
 
             setNotes(prevNotes => prevNotes.filter(noteItem => noteItem.id !== id));
         } catch (error) {

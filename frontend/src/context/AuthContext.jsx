@@ -13,7 +13,7 @@ function AuthProvider({children}) {
         async function fetchUser() {
             try {
                 setLoading(true);
-                const response = await api.get('/auth/me');
+                const response = await api.get('/api/auth/me');
                 setUser(response.data);
             } catch (error) {
                 setUser(null);
@@ -31,7 +31,7 @@ function AuthProvider({children}) {
 
         try {
             setLoading(true);
-            const response = await api.post(isLogin ? '/auth/login' : '/auth/register', userData);
+            const response = await api.post(isLogin ? '/api/auth/login' : '/api/auth/register', userData);
 
             const responseUser = response.data.user;
 
@@ -52,7 +52,7 @@ function AuthProvider({children}) {
 
     async function handleLogout() {
         try {
-            const response = await api.post('/auth/logout')
+            const response = await api.post('/api/auth/logout')
             setUser(null);
         } catch (error) {
             console.error(error);
