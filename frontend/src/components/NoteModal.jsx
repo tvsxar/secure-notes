@@ -56,18 +56,18 @@ function NoteModal() {
                     <div className="flex flex-col gap-4 mt-6 w-md">
                         <input type="text" 
                         placeholder='Title' 
-                        className='bg-gray-100 text-gray-800 text-sm rounded-md px-4 py-2 outline-none w-full' 
+                        className='bg-gray-100 text-gray-800 text-sm sm:text-base rounded-md px-3 sm:px-4 py-2 outline-none w-full' 
                         value={noteData.title}
                         onChange={e => setNoteData(prev => ({...prev, title: e.target.value}))} />
 
                         <textarea type="text" 
                         placeholder='Description' 
-                        className='bg-gray-100 max-h-50 min-h-25 text-gray-800 text-sm rounded-xl px-4 py-2 outline-none w-full' 
+                        className='bg-gray-100 max-h-50 min-h-25 text-gray-800 text-sm rounded-xl px-3 sm:px-4 py-2 outline-none w-full' 
                         value={noteData.description}
                         onChange={e => setNoteData(prev => ({...prev, description: e.target.value}))} />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 mt-6 font-medium">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 font-medium">
                         <button type='button' 
                         onClick={() => handleCloseModal()}
                         className='cursor-pointer rounded-md bg-gray-100 p-2 hover:bg-gray-200'>

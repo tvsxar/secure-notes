@@ -21,9 +21,18 @@ app.use(cookieParser());
 app.use('/auth', AuthRoutes);
 app.use('/notes', NoteRoutes);
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+// Serve static assets if in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+  app.get('/{*splat}', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../frontend', 'dist', 'index.html'));
+  })
+} else {
+  app.get('/', (req, res) => {
+    res.send('API is running....');
+  })
+}
 
 // Start the server
 app.listen(PORT, () => {
