@@ -53,7 +53,7 @@ function NoteModal() {
                 </div>
 
                 <form onSubmit={handleSubmit}>
-                    <div className="flex flex-col gap-4 mt-6 w-md">
+                    <div className="flex flex-col gap-4 mt-6 w-full">
                         <input type="text" 
                         placeholder='Title' 
                         className='bg-gray-100 text-gray-800 text-sm sm:text-base rounded-md px-3 sm:px-4 py-2 outline-none w-full' 
