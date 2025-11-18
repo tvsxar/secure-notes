@@ -49,19 +49,21 @@ function AccountPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white border border-gray-200 rounded-2xl shadow-xl p-8 w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center text-gray-900 mb-2">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+      <div className="bg-white border border-gray-200 rounded-2xl shadow-xl p-8 
+      w-full max-w-md 
+      sm:p-10">
+        <h1 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-2">
           {isLogin ? 'Sign In' : 'Sign Up'}
         </h1>
-        <p className="text-gray-500 text-center mb-6">
+        <p className="text-gray-500 text-center mb-6 text-sm sm:text-base">
           {isLogin
             ? 'Sign in to access your notes'
             : 'Create a new account'}
         </p>
 
         {/* Display errors */}
-        {error && <div className='text-red-500 py-1 mb-3'>{error}</div>}
+        {error && <div className='text-red-500 py-1 mb-3 text-sm sm:text-base'>{error}</div>}
 
         <form className="space-y-4"
         onSubmit={handleSubmit}>
@@ -73,7 +75,8 @@ function AccountPage() {
                 placeholder="Username"
                 value={registerForm.username}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg 
-                focus:ring-2 focus:ring-black focus:outline-none"
+                focus:ring-2 focus:ring-black focus:outline-none
+                text-sm sm:text-base "
                 onChange={setForm}
               />
             </div>
@@ -86,7 +89,8 @@ function AccountPage() {
               placeholder={isLogin ? 'Email or username' : "Email"}
               value={isLogin ? loginForm.usernameOrEmail : registerForm.email}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg 
-              focus:ring-2 focus:ring-black focus:outline-none"
+              focus:ring-2 focus:ring-black focus:outline-none
+              text-sm sm:text-base"
               onChange={setForm}
             />
           </div>
@@ -98,20 +102,22 @@ function AccountPage() {
               placeholder="Password"
               value={isLogin ? loginForm.password : registerForm.password}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg 
-              focus:ring-2 focus:ring-black focus:outline-none"
+              focus:ring-2 focus:ring-black focus:outline-none
+              text-sm sm:text-base"
               onChange={setForm}
             />
           </div>
 
           <button
             type="submit"
-            className="w-full py-2 bg-black text-white rounded-lg 
-            font-medium hover:bg-black/80 transition active:scale-[0.98] cursor-pointer">
+            className="w-full py-2 bg-black text-white rounded-lg font-medium 
+            hover:bg-black/80 transition active:scale-[0.98] cursor-pointer
+            text-sm sm:text-base">
             {!isLogin ? 'Sign Up' : 'Sign In'}
           </button>
         </form>
 
-        <div className="text-center mt-6 text-sm text-gray-600">
+        <div className="text-center mt-6 text-sm text-gray-600 sm:text-base">
           {!isLogin ? 'Already have an account? ' : "Don't have an account? "}
           <Link to={!isLogin ? '/account?mode=login' : '/account?mode=register'}>
             <span className="text-black font-medium hover:underline cursor-pointer">
