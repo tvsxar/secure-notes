@@ -58,6 +58,7 @@ Try it online via our [Live Demo](https://secure-notes-backend-icl1.onrender.com
 - **pg** — PostgreSQL client for Node.js  
 - **Tailwind CSS** — utility-first styling  
 - **axios** — for HTTP requests from frontend  
+- **Docker & Docker Compose** — for containerization and environment orchestration
 
 ---
 
@@ -69,58 +70,59 @@ Try it online via our [Live Demo](https://secure-notes-backend-icl1.onrender.com
 4. Frontend updates the UI and state based on API responses.  
 5. Authentication is handled via JWT in cookies.  
 6. Search and filtering of notes happen on the backend.  
+7. In development, Docker Volumes ensure instant Hot Reload for both services. 
 
 ---
 
 ## Installation & Run
 
-### Backend
+### 1. The Quickest Way (Docker Compose)
+
+_Requires [Docker](https://www.docker.com/get-started/)_
+
+1. Create a `.env` file inside `backend/` (see variables below)
+2. Run everything with one command:
+   ```bash
+   docker-compose up --build
+   ```
+3. Open http://localhost:5173 in your browser
+
+### 2. Manual Setup (For Development)
+
+If you want to run the services separately without Docker:
+
+#### Backend
 
 ```bash
 cd backend
-npm install
-npm i express pg cors dotenv
+npm install jsonwebtoken dotenv cors pg bcryptjs cookie-parser express nodemon
+# Create .env with PORT, DATABASE_URL, CLIENT_URL
+npm run dev
 ```
 
-Create a `.env` file inside `backend/` with the following:
-
-```env
+Backend .env variables:
+```bash
 PORT=3333
-DB_USER=your_db_user
-DB_PASSWORD=your_db_password
-DB_HOST=localhost
-DB_PORT=5173
-DB_NAME=your_db_name
+DATABASE_URL=postgresql://user:password@host/neondb?sslmode=require
+JWT_SECRET=your_secret_key
 NODE_ENV=development
 CLIENT_URL=http://localhost:5173
 ```
 
-```bash
-npm run dev
-```
-
-> **Note for developers:**  
-> For local development, uncomment the local pool configuration in `/db.js` and comment out the production one.  
-> Make sure to fill in your own local database credentials.
-
 ---
 
-### Frontend
+#### Frontend
 
 ```bash
 cd frontend
-npm install
-npm i axios react-router-dom tailwindcss @tailwindcss/vite
-```
-
-Create a `.env` file inside `frontend/` with the following:
-
-```env
-VITE_API_URL=http://localhost:3333
-```
-
-```bash
+npm install axios react-router-dom tailwindcss @tailwindcss/vite
+# Create .env with VITE_API_URL
 npm run dev
+```
+
+Frontend .env variables:
+```bash
+VITE_API_URL=http://localhost:1111
 ```
 
 Frontend will be available at:
@@ -132,7 +134,9 @@ http://localhost:5173
 
 ```
 secure-notes/
+├─ docker-compose.yml
 ├─ backend/
+│  ├─ Dockerfile
 │  ├─ config/db.js
 │  ├─ routes/
 │  │  ├─ auth.js
@@ -140,6 +144,7 @@ secure-notes/
 │  ├─ middleware/protectMiddleware.js
 │  └─ server.js
 ├─ frontend/
+│  ├─ Dockerfile
 │  ├─ src/
 │  │  ├─ pages/
 │  │  │  ├─ AccountPage.jsx
